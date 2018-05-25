@@ -53,6 +53,7 @@ namespace MaBar
                 Point pos = new System.Drawing.Point(i * iconSize, 0);
                 pb.Location = pos;
                 pb.Name = "btn_" + i;
+                pb.Tag = i;
                 pb.Size = new System.Drawing.Size(iconSize, iconSize);
                 pb.Image = Icon.ExtractAssociatedIcon(programList[i]).ToBitmap();
                 pb.BackColor = Color.Pink;
@@ -66,7 +67,15 @@ namespace MaBar
 
         private void test(object sender, EventArgs e)
         {
-            Console.WriteLine("obj" + sender);
+            PictureBox pb = (PictureBox)sender;
+            Console.WriteLine(pb.Tag);
+            try {
+                Process.Start(programList[Int32.Parse(pb.Tag.ToString())]);
+            } catch (Exception ex)
+            {
+                Debug.WriteLine("could not start program" + ex);
+            }
+                
         }
     }
 }
