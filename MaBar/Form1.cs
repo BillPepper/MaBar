@@ -13,7 +13,6 @@ namespace MaBar
 {
     public partial class MaBar : Form
     {
-        /*
         private String[] programList = new string[] {
             "C:/Windows/explorer.exe",
             "C:/Windows/notepad.exe",
@@ -30,10 +29,8 @@ namespace MaBar
             "C:/Windows/splwow64.exe",
             "C:/Windows/write.exe"
         };
-        */
 
         private int iconSize = Properties.Settings.Default.iconSize;
-        private string[] programList = Properties.Settings.Default.programList;
 
         public MaBar()
         {
