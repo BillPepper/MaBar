@@ -13,6 +13,7 @@ namespace MaBar
 {
     public partial class MaBar : Form
     {
+        /*
         private String[] programList = new string[] {
             "C:/Windows/explorer.exe",
             "C:/Windows/notepad.exe",
@@ -29,20 +30,16 @@ namespace MaBar
             "C:/Windows/splwow64.exe",
             "C:/Windows/write.exe"
         };
-        private int iconSize = 42;
+        */
+
+        private int iconSize = Properties.Settings.Default.iconSize;
+        private string[] programList = Properties.Settings.Default.programList;
 
         public MaBar()
         {
             InitializeComponent();
-            // setIcon();
             createButtons();
             this.Size = new System.Drawing.Size(programList.Length * iconSize, iconSize);
-        }
-        
-        private void setIcon(int button, string path)
-        {
-            Icon ic = Icon.ExtractAssociatedIcon("C:/Windows/notepad.exe");
-            //this.btn_one.Image = bla.ToBitmap();
         }
 
         private void createButtons()
