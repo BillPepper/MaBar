@@ -13,6 +13,7 @@ namespace MaBar
 {
     public partial class MaBar : Form
     {
+        /*
         private String[] programList = new string[] {
             "C:/Windows/explorer.exe",
             "C:/Windows/notepad.exe",
@@ -29,27 +30,35 @@ namespace MaBar
             "C:/Windows/splwow64.exe",
             "C:/Windows/write.exe"
         };
+        */
 
-        private int iconSize = Properties.Settings.Default.iconSize;
+        
+
+        Config cfg = new Config(42, new String[] {
+            "C:/Windows/explorer.exe",
+            "C:/Windows/notepad.exe",
+            "C:/Windows/HelpPane.exe",
+            "C:/Windows/notepad.exe"
+        });
 
         public MaBar()
         {
             InitializeComponent();
             createButtons();
-            this.Size = new System.Drawing.Size(programList.Length * iconSize, iconSize);
+            this.Size = new System.Drawing.Size(cfg.getProgramList().Length * cfg.getIconSize(), cfg.getIconSize());
         }
 
         private void createButtons()
         {
-            for (int i = 0; i < programList.Length; i++)
+            for (int i = 0; i < cfg.getProgramList().Length; i++)
             {
                 PictureBox pb = new PictureBox();
-                Point pos = new System.Drawing.Point(i * iconSize, 0);
+                Point pos = new System.Drawing.Point(i * cfg.getIconSize(), 0);
                 pb.Location = pos;
                 pb.Name = "btn_" + i;
                 pb.Tag = i;
-                pb.Size = new System.Drawing.Size(iconSize, iconSize);
-                pb.Image = Icon.ExtractAssociatedIcon(programList[i]).ToBitmap();
+                pb.Size = new System.Drawing.Size(cfg.getIconSize(), cfg.getIconSize());
+                pb.Image = Icon.ExtractAssociatedIcon(cfg.getProgramList()[i]).ToBitmap();
                 pb.BackColor = Color.Pink;
                 pb.SizeMode = PictureBoxSizeMode.CenterImage;
                 pb.Click += new System.EventHandler(this.test);
@@ -64,7 +73,7 @@ namespace MaBar
             PictureBox pb = (PictureBox)sender;
             Console.WriteLine(pb.Tag);
             try {
-                Process.Start(programList[Int32.Parse(pb.Tag.ToString())]);
+                Process.Start(cfg.getProgramList()[Int32.Parse(pb.Tag.ToString())]);
             } catch (Exception ex)
             {
                 Debug.WriteLine("could not start program" + ex);
