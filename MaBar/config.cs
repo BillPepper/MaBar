@@ -22,9 +22,19 @@ namespace MaBar
             return this.iconSize;
         }
 
+        public void setIconSize(int size)
+        {
+            this.iconSize = size;
+        }
+
         public string[] getProgramList()
         {
             return this.programList;
+        }
+
+        public void setProgramList(string[] list)
+        {
+            this.programList = list;
         }
     }
 
