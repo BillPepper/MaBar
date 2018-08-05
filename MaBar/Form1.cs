@@ -17,10 +17,16 @@ namespace MaBar
     public partial class MaBar : Form
     {
         Config cfg = new Config(42, new String[] {
-            "C:/Windows/explorer.exe",
-            "C:/Windows/notepad.exe",
-            "C:/Windows/HelpPane.exe",
-            "C:/Windows/notepad.exe"
+            "D:/Tools/Ableton 9/Program/Ableton Live 9 Suite.exe",
+            "D:/Tools/KeePass Password Safe 2/KeePass.exe",
+            "D:/Tools/GIMP 2/bin/gimp-2.8.exe",
+            // "C:/WINDOWS/system32/SnippingTool.exe",
+            "D:/Tools/Notepad++/notepad++.exe",
+            "D:/Programming/Microsoft VS Code/Code.exe",
+            "D:/Programming/Visual Studio 2017/Common7/IDE/WDExpress.exe",
+            "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
+            "C:/Program Files/VeraCrypt/VeraCrypt-x86.exe",
+            "D:/Tools/Audacity/audacity.exe"
         });
 
 
@@ -34,6 +40,7 @@ namespace MaBar
             saveToJson();
             loadFromJson();
             createButtons();
+            setWindowPositon();
             this.Size = new System.Drawing.Size(cfg.getProgramList().Length * cfg.getIconSize(), cfg.getIconSize());
         }
 
@@ -79,18 +86,37 @@ namespace MaBar
             }
         }
 
+        private void setWindowPositon()
+        {
+            int w = SystemInformation.VirtualScreen.Width;
+            int h = SystemInformation.VirtualScreen.Height;
 
+            this.Top = 1010;
+
+            Debug.WriteLine(w + " " + h);
+        }
 
         private void test(object sender, EventArgs e)
         {
+            MouseEventArgs me = (MouseEventArgs) e;
             PictureBox pb = (PictureBox)sender;
-            Console.WriteLine(pb.Tag);
-            try {
-                Process.Start(cfg.getProgramList()[Int32.Parse(pb.Tag.ToString())]);
-                Application.Exit();
-            } catch (Exception ex)
+            Console.WriteLine(me);
+            if (me.Button == MouseButtons.Right)
             {
-                Debug.WriteLine("could not start program" + ex);
+                Debug.WriteLine("Right");
+            }
+            else
+            {
+                try
+                {
+                    Debug.WriteLine("Other");
+                    //Process.Start(cfg.getProgramList()[Int32.Parse(pb.Tag.ToString())]);
+                    //Application.Exit();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("could not start program" + ex);
+                }
             }
                 
         }
