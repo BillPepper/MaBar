@@ -37,8 +37,8 @@ namespace MaBar
         public MaBar()
         {
             InitializeComponent();
-            saveToJson();
-            loadFromJson();
+            // loadFromJson();
+            // saveToJson();
             createButtons();
             setWindowPositon();
             this.Size = new System.Drawing.Size(cfg.getProgramList().Length * cfg.getIconSize(), cfg.getIconSize());
@@ -46,20 +46,25 @@ namespace MaBar
 
         private void saveToJson()
         {
-            /*
             string json = JsonConvert.SerializeObject(cfg.getProgramList());
-            StreamWriter sw = new StreamWriter(@"testsave.txt");
+            StreamWriter sw = new StreamWriter(@"programlist.txt");
             sw.Write(json);
             sw.Close();
-            */
-
         }
 
         private void loadFromJson()
         {
-            StreamReader sr = new StreamReader(@"testsave.txt");
-            string json = sr.ReadToEnd();
-            // cfg = JsonConvert.DeserializeObject<Config>(json);
+            try
+            {
+                StreamReader sr = new StreamReader(@"programlist.txt");
+                string json = sr.ReadToEnd();
+                cfg = JsonConvert.DeserializeObject<Config>(json);
+            } catch(Exception e)
+            {
+                MessageBox.Show("Could not load program list");
+                Debug.WriteLine(e.StackTrace);
+            }
+           
         }
 
         private void createButtons()
@@ -110,8 +115,8 @@ namespace MaBar
                 try
                 {
                     Debug.WriteLine("Other");
-                    //Process.Start(cfg.getProgramList()[Int32.Parse(pb.Tag.ToString())]);
-                    //Application.Exit();
+                    Process.Start(cfg.getProgramList()[Int32.Parse(pb.Tag.ToString())]);
+                    Application.Exit();
                 }
                 catch (Exception ex)
                 {
