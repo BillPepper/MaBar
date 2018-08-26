@@ -16,28 +16,51 @@ namespace MaBar
 {
     public partial class MaBar : Form
     {
+        string configFile = @"programlist.txt";
         Config config;
 
         public MaBar()
         {
             InitializeComponent();
             loadConfig();
-            createButtons();
+
+            if (config != null)
+            {
+                createButtons();
+            }
+        }
+
+        private void setupWindow()
+        {
             setWindowPositon();
             this.Size = new Size(config.applications.Length * config.iconSize, config.iconSize);
         }
 
         private void loadConfig()
         {
-            try
+            if (!File.Exists(configFile))
             {
-                StreamReader sr = new StreamReader(@"programlist.txt");
-                this.config = JsonConvert.DeserializeObject<Config>(sr.ReadToEnd());
-            } catch(Exception e)
+                DialogResult missingConfig = MessageBox.Show("The config file is missing, should one be generated?", "Missing Config", MessageBoxButtons.YesNo);
+                if (missingConfig == DialogResult.No)
+                {
+                    Application.Exit();
+                }else
+                {
+                    MessageBox.Show("Sorry, this function is not ready yet :(");
+                }
+            } else
             {
-                MessageBox.Show("Could not load config" + e );
+                try
+                {
+                    StreamReader sr = new StreamReader(@"programlist.txt");
+                    this.config = JsonConvert.DeserializeObject<Config>(sr.ReadToEnd());
+                    setupWindow();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Could not load config" + e);
+                }
             }
-            
         }
 
         private void createButtons()
