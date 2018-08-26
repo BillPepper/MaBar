@@ -76,7 +76,14 @@ namespace MaBar
                     pb.Tag = i;
                     pb.Size = new System.Drawing.Size(config.iconSize, config.iconSize);
                     pb.Image = Icon.ExtractAssociatedIcon(config.applications[i]).ToBitmap();
-                    pb.BackColor = Color.FromArgb(255, 27, 27, 27);
+                    if (config.colors.Length == 3)
+                    {
+                        pb.BackColor = Color.FromArgb(255, config.colors[0], config.colors[1], config.colors[2]);
+                    } else
+                    {
+                        pb.BackColor = Color.FromArgb(255, 27, 27, 27);
+                    }
+                    
                     pb.SizeMode = PictureBoxSizeMode.CenterImage;
                     pb.Click += new System.EventHandler(this.test);
                     this.Controls.Add(pb);
