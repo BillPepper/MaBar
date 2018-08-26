@@ -16,70 +16,36 @@ namespace MaBar
 {
     public partial class MaBar : Form
     {
-        Config cfg = new Config(42, new String[] {
-            "D:/Tools/Ableton 9/Program/Ableton Live 9 Suite.exe",
-            "D:/Tools/KeePass Password Safe 2/KeePass.exe",
-            "D:/Tools/GIMP 2/bin/gimp-2.8.exe",
-            // "C:/WINDOWS/system32/SnippingTool.exe",
-            "D:/Tools/Notepad++/notepad++.exe",
-            "D:/Programming/Microsoft VS Code/Code.exe",
-            "D:/Programming/Visual Studio 2017/Common7/IDE/WDExpress.exe",
-            "C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe",
-            "C:/Program Files/VeraCrypt/VeraCrypt-x86.exe",
-            "D:/Tools/Audacity/audacity.exe"
-        });
-
-
-        // Config c = new Config();
-
-        // Config cfg;
+        Config config;
 
         public MaBar()
         {
             InitializeComponent();
-            // loadFromJson();
-            // saveToJson();
+            loadConfig();
             createButtons();
             setWindowPositon();
-            this.Size = new System.Drawing.Size(cfg.getProgramList().Length * cfg.getIconSize(), cfg.getIconSize());
+            this.Size = new Size(config.applications.Length * config.iconSize, config.iconSize);
         }
 
-        private void saveToJson()
+        private void loadConfig()
         {
-            string json = JsonConvert.SerializeObject(cfg.getProgramList());
-            StreamWriter sw = new StreamWriter(@"programlist.txt");
-            sw.Write(json);
-            sw.Close();
-        }
-
-        private void loadFromJson()
-        {
-            try
-            {
-                StreamReader sr = new StreamReader(@"programlist.txt");
-                string json = sr.ReadToEnd();
-                cfg = JsonConvert.DeserializeObject<Config>(json);
-            } catch(Exception e)
-            {
-                MessageBox.Show("Could not load program list");
-                Debug.WriteLine(e.StackTrace);
-            }
-           
+            StreamReader sr = new StreamReader(@"programlist.txt");
+            this.config = JsonConvert.DeserializeObject<Config>(sr.ReadToEnd());
         }
 
         private void createButtons()
         {
             try
             {
-                for (int i = 0; i < cfg.getProgramList().Length; i++)
+                for (int i = 0; i < config.applications.Length; i++)
                 {
                     PictureBox pb = new PictureBox();
-                    Point pos = new System.Drawing.Point(i * cfg.getIconSize(), 0);
+                    Point pos = new System.Drawing.Point(i * config.iconSize, 0);
                     pb.Location = pos;
                     pb.Name = "btn_" + i;
                     pb.Tag = i;
-                    pb.Size = new System.Drawing.Size(cfg.getIconSize(), cfg.getIconSize());
-                    pb.Image = Icon.ExtractAssociatedIcon(cfg.getProgramList()[i]).ToBitmap();
+                    pb.Size = new System.Drawing.Size(config.iconSize, config.iconSize);
+                    pb.Image = Icon.ExtractAssociatedIcon(config.applications[i]).ToBitmap();
                     pb.BackColor = Color.FromArgb(255, 27, 27, 27);
                     pb.SizeMode = PictureBoxSizeMode.CenterImage;
                     pb.Click += new System.EventHandler(this.test);
@@ -95,10 +61,7 @@ namespace MaBar
         {
             int w = SystemInformation.VirtualScreen.Width;
             int h = SystemInformation.VirtualScreen.Height;
-
             this.Top = 1010;
-
-            Debug.WriteLine(w + " " + h);
         }
 
         private void test(object sender, EventArgs e)
@@ -115,8 +78,8 @@ namespace MaBar
                 try
                 {
                     Debug.WriteLine("Other");
-                    Process.Start(cfg.getProgramList()[Int32.Parse(pb.Tag.ToString())]);
-                    Application.Exit();
+                    Process.Start(config.applications[Int32.Parse(pb.Tag.ToString())]);
+                    // Application.Exit();
                 }
                 catch (Exception ex)
                 {
@@ -128,7 +91,7 @@ namespace MaBar
 
         private void MaBar_Deactivate(object sender, EventArgs e)
         {
-            Application.Exit();
+            // Application.Exit();
         }
     }
 }
