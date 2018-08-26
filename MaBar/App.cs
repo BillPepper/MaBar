@@ -29,8 +29,15 @@ namespace MaBar
 
         private void loadConfig()
         {
-            StreamReader sr = new StreamReader(@"programlist.txt");
-            this.config = JsonConvert.DeserializeObject<Config>(sr.ReadToEnd());
+            try
+            {
+                StreamReader sr = new StreamReader(@"programlist.txt");
+                this.config = JsonConvert.DeserializeObject<Config>(sr.ReadToEnd());
+            } catch(Exception e)
+            {
+                MessageBox.Show("Could not load config" + e );
+            }
+            
         }
 
         private void createButtons()
@@ -79,7 +86,7 @@ namespace MaBar
                 {
                     Debug.WriteLine("Other");
                     Process.Start(config.applications[Int32.Parse(pb.Tag.ToString())]);
-                    // Application.Exit();
+                    Application.Exit();
                 }
                 catch (Exception ex)
                 {
@@ -91,7 +98,7 @@ namespace MaBar
 
         private void MaBar_Deactivate(object sender, EventArgs e)
         {
-            // Application.Exit();
+            Application.Exit();
         }
     }
 }
