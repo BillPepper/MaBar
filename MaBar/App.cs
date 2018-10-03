@@ -113,7 +113,6 @@ namespace MaBar
             {
                 try
                 {
-                    Debug.WriteLine("Other");
                     Process.Start(config.applications[Int32.Parse(pb.Tag.ToString())]);
                     Application.Exit();
                 }
