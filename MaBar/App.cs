@@ -110,18 +110,26 @@ namespace MaBar
         {
             MouseEventArgs me = (MouseEventArgs) e;
             PictureBox pb = (PictureBox)sender;
+
             if (me.Button == MouseButtons.Left)
             {
-                try
+                if (!editModeActive)
                 {
-                    Process.Start(config.applications[Int32.Parse(pb.Tag.ToString())]);
-                    Application.Exit();
-                }
-                catch (Exception ex)
+                    try
+                    {
+                        Process.Start(config.applications[Int32.Parse(pb.Tag.ToString())]);
+                        Application.Exit();
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("could not start program" + ex);
+                    }
+                } else
                 {
-                    Debug.WriteLine("could not start program" + ex);
+                    pb.BackColor = Color.OrangeRed;
                 }
             }
+
         }
 
         private void MaBar_Deactivate(object sender, EventArgs e)
