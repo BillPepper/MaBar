@@ -18,6 +18,7 @@ namespace MaBar
     {
         string configFile = @"programlist.txt";
         Config config;
+        bool editModeActive = false;
 
         public MaBar()
         {
@@ -132,6 +133,21 @@ namespace MaBar
         private void MaBar_Deactivate(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void toggleEditMode(object sender, EventArgs e)
+        {
+            if (!this.editModeActive)
+            {
+                Debug.WriteLine("enabling em");
+                this.editModeActive = true;
+                this.Top = 1011;
+            } else
+            {
+                Debug.WriteLine("disabling em");
+                this.editModeActive = false;
+                this.Top = 1020;
+            }
         }
     }
 }

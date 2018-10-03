@@ -50,12 +50,14 @@
             this.btn_editMode.TabIndex = 1;
             this.btn_editMode.Text = ":";
             this.btn_editMode.UseVisualStyleBackColor = true;
+            this.btn_editMode.Click += new System.EventHandler(this.toggleEditMode);
             // 
             // MaBar
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.ClientSize = new System.Drawing.Size(128, 32);
             this.Controls.Add(this.btn_editMode);
             this.Controls.Add(this.pictureBox1);
