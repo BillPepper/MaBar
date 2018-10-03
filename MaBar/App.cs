@@ -144,6 +144,7 @@ namespace MaBar
             {
                 Debug.WriteLine("enabling em");
                 this.editModeActive = true;
+                this.TopMost = true;
                 this.Top = 1011;
             } else
             {
