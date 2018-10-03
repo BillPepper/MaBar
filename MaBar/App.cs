@@ -98,7 +98,7 @@ namespace MaBar
         {
             int w = SystemInformation.VirtualScreen.Width;
             int h = SystemInformation.VirtualScreen.Height;
-            this.Top = 1010;
+            this.Top = 1020;
         }
 
         private void test(object sender, EventArgs e)
