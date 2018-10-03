@@ -82,6 +82,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "MaBar";
             this.Deactivate += new System.EventHandler(this.MaBar_Deactivate);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MaBar_DragEnter);
+            this.DragLeave += new System.EventHandler(this.MaBar_DragLeave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
