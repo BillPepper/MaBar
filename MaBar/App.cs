@@ -132,7 +132,10 @@ namespace MaBar
 
         private void MaBar_Deactivate(object sender, EventArgs e)
         {
-            Application.Exit();
+            if (!editModeActive)
+            {
+                Application.Exit();
+            }
         }
 
         private void toggleEditMode(object sender, EventArgs e)
