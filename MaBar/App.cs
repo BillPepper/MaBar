@@ -55,6 +55,7 @@ namespace MaBar
                 {
                     StreamReader sr = new StreamReader(configFile);
                     this.config = JsonConvert.DeserializeObject<Config>(sr.ReadToEnd());
+                    sr.Close();
                     setupWindow();
                 }
                 catch (Exception e)
@@ -62,6 +63,13 @@ namespace MaBar
                     MessageBox.Show("Could not load config" + e);
                 }
             }
+        }
+
+        private void saveConfig()
+        {
+            StreamWriter sw = new StreamWriter(configFile);
+            sw.Write(JsonConvert.SerializeObject(this.config));
+            sw.Close();
         }
 
         private void createButtons()
@@ -150,6 +158,7 @@ namespace MaBar
                 this.Top = config.topPos - 20;
             } else
             {
+                saveConfig();
                 this.editModeActive = false;
                 this.Size = new Size(this.Size.Width, config.iconSize);
                 this.Top = config.topPos;
