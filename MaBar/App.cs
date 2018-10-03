@@ -96,6 +96,7 @@ namespace MaBar
 
             // move editMode button to the end of the apps
             btn_editMode.Location = new Point(config.applications.Length * config.iconSize, 0);
+            btn_editMode.Size = new Size(16, config.iconSize);
         }
 
         private void setWindowPositon()
