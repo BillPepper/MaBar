@@ -86,7 +86,7 @@ namespace MaBar
                     }
                     
                     pb.SizeMode = PictureBoxSizeMode.CenterImage;
-                    pb.Click += new System.EventHandler(this.test);
+                    pb.Click += new System.EventHandler(this.handleButtonClick);
                     this.Controls.Add(pb);
                 }
             } catch (Exception e)
@@ -106,7 +106,7 @@ namespace MaBar
             this.Top = config.topPos;
         }
 
-        private void test(object sender, EventArgs e)
+        private void handleButtonClick(object sender, EventArgs e)
         {
             MouseEventArgs me = (MouseEventArgs) e;
             PictureBox pb = (PictureBox)sender;
