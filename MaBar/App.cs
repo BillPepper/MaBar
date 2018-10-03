@@ -155,5 +155,19 @@ namespace MaBar
                 this.Top = config.topPos;
             }
         }
+
+        private void MaBar_DragEnter(object sender, DragEventArgs e)
+        {
+            if (editModeActive)
+            {
+                string[] FileList = (string[])e.Data.GetData(DataFormats.FileDrop, false);
+                label_editMode.Text = "Add: " + FileList[0].ToString();
+            }
+        }
+
+        private void MaBar_DragLeave(object sender, EventArgs e)
+        {
+            label_editMode.Text = "Click the Icons to remove or drag new ones in";
+        }
     }
 }
