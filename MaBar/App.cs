@@ -109,13 +109,8 @@ namespace MaBar
         {
             MouseEventArgs me = (MouseEventArgs) e;
             PictureBox pb = (PictureBox)sender;
-            Console.WriteLine(me);
-            //if (me.Button == MouseButtons.Right)
-            //{
-            //    setEditMode("active");
-            //}
-            //else
-            //{
+            if (me.Button == MouseButtons.Left)
+            {
                 try
                 {
                     Debug.WriteLine("Other");
@@ -126,8 +121,7 @@ namespace MaBar
                 {
                     Debug.WriteLine("could not start program" + ex);
                 }
-            //}
-                
+            }
         }
 
         private void MaBar_Deactivate(object sender, EventArgs e)
