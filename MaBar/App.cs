@@ -136,14 +136,12 @@ namespace MaBar
         {
             if (!this.editModeActive)
             {
-                Debug.WriteLine("enabling em");
                 this.editModeActive = true;
                 this.TopMost = true;
                 this.Size = new Size (this.Size.Width, config.iconSize + 20);
                 this.Top = config.topPos - 20;
             } else
             {
-                Debug.WriteLine("disabling em");
                 this.editModeActive = false;
                 this.Top = config.topPos;
             }
