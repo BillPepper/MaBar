@@ -16,7 +16,7 @@ namespace MaBar
 {
     public partial class MaBar : Form
     {
-        string configFile = @"programlist.txt";
+        string configFile = @"config.json";
         Config config;
         bool editModeActive = false;
 
@@ -53,7 +53,7 @@ namespace MaBar
             {
                 try
                 {
-                    StreamReader sr = new StreamReader(@"programlist.txt");
+                    StreamReader sr = new StreamReader(configFile);
                     this.config = JsonConvert.DeserializeObject<Config>(sr.ReadToEnd());
                     setupWindow();
                 }
