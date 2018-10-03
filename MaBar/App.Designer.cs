@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MaBar));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btn_editMode = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -41,12 +42,22 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // btn_editMode
+            // 
+            this.btn_editMode.Location = new System.Drawing.Point(0, 0);
+            this.btn_editMode.Name = "btn_editMode";
+            this.btn_editMode.Size = new System.Drawing.Size(16, 32);
+            this.btn_editMode.TabIndex = 1;
+            this.btn_editMode.Text = ":";
+            this.btn_editMode.UseVisualStyleBackColor = true;
+            // 
             // MaBar
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(128, 32);
+            this.Controls.Add(this.btn_editMode);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -65,6 +76,7 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button btn_editMode;
     }
 }
 
