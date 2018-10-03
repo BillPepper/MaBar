@@ -103,7 +103,7 @@ namespace MaBar
         {
             int w = SystemInformation.VirtualScreen.Width;
             int h = SystemInformation.VirtualScreen.Height;
-            this.Top = 1020;
+            this.Top = config.topPos;
         }
 
         private void test(object sender, EventArgs e)
@@ -139,12 +139,13 @@ namespace MaBar
                 Debug.WriteLine("enabling em");
                 this.editModeActive = true;
                 this.TopMost = true;
-                this.Top = 1011;
+                this.Size = new Size (this.Size.Width, config.iconSize + 20);
+                this.Top = config.topPos - 20;
             } else
             {
                 Debug.WriteLine("disabling em");
                 this.editModeActive = false;
-                this.Top = 1020;
+                this.Top = config.topPos;
             }
         }
     }
