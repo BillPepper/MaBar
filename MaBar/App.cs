@@ -33,7 +33,7 @@ namespace MaBar
         private void setupWindow()
         {
             setWindowPositon();
-            this.Size = new Size(config.applications.Length * config.iconSize, config.iconSize);
+            this.Size = new Size(config.applications.Length * config.iconSize + 16, config.iconSize); //add 16px for the editMode button
         }
 
         private void loadConfig()
@@ -92,6 +92,9 @@ namespace MaBar
             {
                 MessageBox.Show("could not load config" + e);
             }
+
+            // move editMode button to the end of the apps
+            btn_editMode.Location = new Point(config.applications.Length * config.iconSize, 0);
         }
 
         private void setWindowPositon()
