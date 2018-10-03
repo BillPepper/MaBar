@@ -143,6 +143,7 @@ namespace MaBar
             } else
             {
                 this.editModeActive = false;
+                this.Size = new Size(this.Size.Width, config.iconSize);
                 this.Top = config.topPos;
             }
         }
