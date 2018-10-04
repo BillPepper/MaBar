@@ -23,40 +23,56 @@ namespace MaBar
         public MaBar()
         {
             InitializeComponent();
-            loadConfig();
 
-            if (config != null)
+            if (checkConfig())
             {
+                loadConfig();
+                setupWindow();
                 createButtons();
+            } else
+            {
+                createNewConfig();
             }
         }
 
         private void setupWindow()
         {
-            setWindowPositon();
-            this.Size = new Size(config.applications.Length * config.iconSize + 16, config.iconSize); //add 16px for the editMode button
+            int width = config.applications.Length * config.iconSize + 16; //add 16px for the editMode button
+            int height = config.iconSize;
+            this.Top = config.topPos;
+            this.Size = new Size(width, height );
+        }
+
+        private bool checkConfig()
+        {
+            if (!File.Exists(configFile))
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void createNewConfig()
+        {
+            DialogResult missingConfig = MessageBox.Show("The config file is missing, should one be generated?", "Missing Config", MessageBoxButtons.YesNo);
+            if (missingConfig == DialogResult.No)
+            {
+                Application.Exit();
+            }
+            else
+            {
+                MessageBox.Show("Sorry, this function is not ready yet :(");
+            }
         }
 
         private void loadConfig()
         {
-            if (!File.Exists(configFile))
-            {
-                DialogResult missingConfig = MessageBox.Show("The config file is missing, should one be generated?", "Missing Config", MessageBoxButtons.YesNo);
-                if (missingConfig == DialogResult.No)
-                {
-                    Application.Exit();
-                }else
-                {
-                    MessageBox.Show("Sorry, this function is not ready yet :(");
-                }
-            } else
             {
                 try
                 {
                     StreamReader sr = new StreamReader(configFile);
                     this.config = JsonConvert.DeserializeObject<Config>(sr.ReadToEnd());
                     sr.Close();
-                    setupWindow();
                 }
                 catch (Exception e)
                 {
@@ -67,9 +83,16 @@ namespace MaBar
 
         private void saveConfig()
         {
-            StreamWriter sw = new StreamWriter(configFile);
-            sw.Write(JsonConvert.SerializeObject(this.config));
-            sw.Close();
+            try
+            {
+                StreamWriter sw = new StreamWriter(configFile);
+                sw.Write(JsonConvert.SerializeObject(this.config));
+                sw.Close();
+            } catch (Exception e)
+            {
+                MessageBox.Show("Could not save config" + e);
+            }
+            
         }
 
         private void createButtons()
@@ -99,19 +122,12 @@ namespace MaBar
                 }
             } catch (Exception e)
             {
-                MessageBox.Show("could not load config" + e);
+                MessageBox.Show("could not create buttons" + e);
             }
 
             // move editMode button to the end of the apps
             btn_editMode.Location = new Point(config.applications.Length * config.iconSize, 0);
             btn_editMode.Size = new Size(16, config.iconSize);
-        }
-
-        private void setWindowPositon()
-        {
-            int w = SystemInformation.VirtualScreen.Width;
-            int h = SystemInformation.VirtualScreen.Height;
-            this.Top = config.topPos;
         }
 
         private void handleButtonClick(object sender, EventArgs e)
