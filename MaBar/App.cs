@@ -29,6 +29,7 @@ namespace MaBar
                 loadConfig();
                 setupWindow();
                 createButtons();
+                setColor(255, config.colors[0], config.colors[1], config.colors[2]);
             } else
             {
                 createNewConfig();
@@ -95,6 +96,18 @@ namespace MaBar
             
         }
 
+        private void setColor(int a, int r, int g, int b)
+        {
+            foreach (Control c in Controls)
+            {
+                if (c.GetType() == typeof(PictureBox))
+                {
+                    c.BackColor = Color.FromArgb(a, r, g, b);
+                }
+            }
+
+        }
+
         private void createButtons()
         {
             try
@@ -108,14 +121,6 @@ namespace MaBar
                     pb.Tag = i;
                     pb.Size = new System.Drawing.Size(config.iconSize, config.iconSize);
                     pb.Image = Icon.ExtractAssociatedIcon(config.applications[i]).ToBitmap();
-                    if (config.colors.Length == 3)
-                    {
-                        pb.BackColor = Color.FromArgb(255, config.colors[0], config.colors[1], config.colors[2]);
-                    } else
-                    {
-                        pb.BackColor = Color.FromArgb(255, 27, 27, 27);
-                    }
-                    
                     pb.SizeMode = PictureBoxSizeMode.CenterImage;
                     pb.Click += new System.EventHandler(this.handleButtonClick);
                     this.Controls.Add(pb);
@@ -166,6 +171,7 @@ namespace MaBar
 
         private void toggleEditMode(object sender, EventArgs e)
         {
+            setColor(255, 100, 100, 100);
             if (!this.editModeActive)
             {
                 this.editModeActive = true;
