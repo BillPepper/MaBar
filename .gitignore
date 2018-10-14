@@ -1,5 +1,5 @@
-MaBar/obj/
-MaBar/bin/
-MaBar/Properties/
-packages/
-.vs/
+MaBar/obj/*
+MaBar/bin/*
+MaBar/Properties/*
+packages/*
+.vs/*
